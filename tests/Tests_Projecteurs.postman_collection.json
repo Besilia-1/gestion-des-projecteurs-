@@ -1,0 +1,80 @@
+{
+    "info": {
+        "name": "Tests Projecteurs",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Lister les projecteurs",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:5000/projectors",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "projectors"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Ajouter un projecteur",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"nom\": \"Projecteur HD\",\n    \"marque\": \"Epson\",\n    \"etat\": \"Disponible\"\n}"
+                },
+                "url": {
+                    "raw": "http://localhost:5000/projectors",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "projectors"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "R\u00e9server un projecteur",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"projectorId\": 1,\n    \"dateReservation\": \"2025-02-27\",\n    \"heureDebut\": \"10:00\",\n    \"heureFin\": \"12:00\"\n}"
+                },
+                "url": {
+                    "raw": "http://localhost:5000/reservations",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "reservations"
+                    ]
+                }
+            }
+        }
+    ]
+}
