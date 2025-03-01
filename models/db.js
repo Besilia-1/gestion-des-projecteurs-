@@ -3,7 +3,7 @@ const path = require('path');
 
 // Spécifie le chemin vers la base de données SQLite
 const dbPath = path.resolve(__dirname, 'projector_management.db');
-const db = new sqlite3.Database(dbPath, (err) => {
+const db = new sqlite3.Database(path.join(__dirname, 'database.sqlite'), (err) => {
     if (err) {
         console.error('Erreur de connexion à la base de données SQLite:', err.message);
         return;
@@ -18,7 +18,7 @@ const createUsersTable = () => {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             email TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL,
-            role TEXT DEFAULT 'student',
+            role TEXT CHECK(role IN ('student', 'teacher', 'admin')) DEFAULT 'student',
             created_at TEXT DEFAULT CURRENT_TIMESTAMP
         );
     `;
@@ -88,3 +88,5 @@ db.serialize(() => {
         }
     });
 });
+
+module.exports = db;
