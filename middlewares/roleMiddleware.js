@@ -1,10 +1,12 @@
-const roleMiddleware = (roles) => {
+// Middleware pour vérifier les rôles
+const authorizeRole = (role) => {
     return (req, res, next) => {
-        if (!roles.includes(req.user.role)) {
-            return res.status(403).json({ message: "Accès interdit. Vous n'avez pas les permissions requises." });
+        if (req.user.role !== role) {
+            return res.status(403).json({ message: 'Accès refusé. Rôle insuffisant.' });
         }
-        next();
+        next(); // L'utilisateur a le rôle requis, donc on passe à la route
     };
 };
 
-module.exports = roleMiddleware;
+ module.exports = authorizeRole;
+

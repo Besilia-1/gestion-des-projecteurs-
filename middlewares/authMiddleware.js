@@ -1,22 +1,21 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const jwt = require('jsonwebtoken');
 
-const authMiddleware = (req, res, next) => {
-    // Récupérer le token dans l'en-tête Authorization
-    const token = req.header("Authorization");
+// Middleware pour vérifier l'authentification
+const authenticateToken = (req, res, next) => {
+    const token = req.header('Authorization')?.replace('Bearer ', ''); // On récupère le token depuis l'en-tête Authorization
 
     if (!token) {
-        return res.status(401).json({ message: "Accès refusé. Aucun token fourni." });
+        return res.status(401).json({ message: 'Accès non autorisé. Token manquant.' });
     }
 
-    try {
-        // Vérifier et décoder le token
-        const decoded = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET);
-        req.user = decoded; // Attacher l'utilisateur à req.user
-        next(); // Passer à la suite
-    } catch (err) {
-        res.status(403).json({ message: "Token invalide." });
-    }
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({ message: 'Token invalide.' });
+        }
+
+        req.user = decoded; // On attache les données utilisateur à la requête
+        next(); // On passe au prochain middleware ou à la route
+    });
 };
 
-module.exports = authMiddleware;
+module.exports = authenticateToken;
