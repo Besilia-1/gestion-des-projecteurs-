@@ -18,7 +18,7 @@ const createUsersTable = () => {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             email TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL,
-            role TEXT DEFAULT 'student',
+            role TEXT CHECK(role IN ('student', 'teacher', 'admin')) DEFAULT 'student',
             created_at TEXT DEFAULT CURRENT_TIMESTAMP
         );
     `;
