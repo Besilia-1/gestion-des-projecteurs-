@@ -3,7 +3,7 @@ const path = require('path');
 
 // Spécifie le chemin vers la base de données SQLite
 const dbPath = path.resolve(__dirname, 'projector_management.db');
-const db = new sqlite3.Database(dbPath, (err) => {
+const db = new sqlite3.Database(path.join(__dirname, 'database.sqlite'), (err) => {
     if (err) {
         console.error('Erreur de connexion à la base de données SQLite:', err.message);
         return;
@@ -88,3 +88,5 @@ db.serialize(() => {
         }
     });
 });
+
+module.exports = db;
