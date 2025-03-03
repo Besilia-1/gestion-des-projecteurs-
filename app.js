@@ -3,12 +3,14 @@ const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
 const projectorRoutes = require('./routes/projectorRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
+const cors = require('cors');
 
 // Charger les variables d'environnement
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Routes
 app.use('/api/users', userRoutes);
