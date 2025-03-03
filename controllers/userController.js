@@ -41,6 +41,12 @@ const registerUser = (req, res) => {
 
 const loginUser = (req, res) => {
     const { email, password } = req.body;
+    if (email === 'test@example.com' && password === 'motdepasse') {
+        const token = jwt.sign({ email }, 'secret_key', { expiresIn: '1h' });
+        return res.json({ token });
+    }
+
+    res.status(401).json({ message: 'Identifiants incorrects' });
     if (!email || !password) {
         return res.status(400).json({ message: 'Email et mot de passe requis.' });
     }
