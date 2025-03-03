@@ -17,6 +17,10 @@ router.get("/admin", authMiddleware, roleMiddleware(["admin"]), (req, res) => {
     res.json({ message: "Bienvenue, administrateur !" });
 });
 
+app.get("/api/profile", authenticateToken, (req, res) => {
+    res.json({ message: "Profil utilisateur récupéré avec succès", user: req.user });
+});
+
 const reserveProjector = (req, res) => {
     const { projector_id, date, time } = req.body;
     const userId = req.user.userId; // L'utilisateur authentifié

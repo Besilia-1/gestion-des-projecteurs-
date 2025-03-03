@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 // Middleware pour vérifier l'authentification
 const authenticateToken = (req, res, next) => {
-    const token = req.header('Authorization')?.replace('Bearer ', ''); // On récupère le token depuis l'en-tête Authorization
+    const token = req.header('Authorization')?.replace('Bearer invalid_token ', ''); // On récupère le token depuis l'en-tête Authorization
 
     if (!token) {
         return res.status(401).json({ message: 'Accès non autorisé. Token manquant.' });
